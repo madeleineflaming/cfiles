@@ -13,12 +13,11 @@ do
   vim.g.maplocalleader = ' '
 
   -- Set to true if you have a Nerd Font installed and selected in the terminal
-  vim.g.have_nerd_font = false
+  vim.g.have_nerd_font = true
 
   -- [[ Setting options ]]
   --  See `:help vim.o`
-  -- NOTE: You can change these options as you wish!
-  --  For more options, you can see `:help option-list`
+  --  See `:help option-list`
 
   -- Make line & relative line numbers default
   vim.o.number = true
@@ -244,7 +243,7 @@ do
     spec = {
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
       { '<leader>t', group = '[T]oggle' },
-      { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+      --{ '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
   }
@@ -299,10 +298,7 @@ do
   require('mini.surround').setup()
 
   -- Simple and easy statusline.
-  --  You could remove this setup call if you don't like it,
-  --  and try some other statusline plugin
   local statusline = require 'mini.statusline'
-  -- Set `use_icons` to true if you have a Nerd Font
   statusline.setup { use_icons = vim.g.have_nerd_font }
 
   -- You can configure sections in the statusline by overriding their
@@ -311,8 +307,7 @@ do
   ---@diagnostic disable-next-line: duplicate-set-field
   statusline.section_location = function() return '%2l:%-2v' end
 
-  -- ... and there is more!
-  --  Check out: https://github.com/nvim-mini/mini.nvim
+  --  See: https://github.com/nvim-mini/mini.nvim
 end
 
 -- ============================================================
@@ -642,19 +637,6 @@ end
 -- blink.cmp and luasnip setup
 -- ============================================================
 do
-  -- [[ Snippet Engine ]]
-
-  -- NOTE: You can also specify plugin using a version range for its git tag.
-  --  See `:help vim.version.range()` for more info
-  vim.pack.add { { src = gh 'L3MON4D3/LuaSnip', version = vim.version.range '2.*' } }
-  require('luasnip').setup {}
-
-  -- `friendly-snippets` contains a variety of premade snippets.
-  --    See the README about individual language/framework/plugin snippets:
-  --    https://github.com/rafamadriz/friendly-snippets
-  --
-  -- vim.pack.add { gh 'rafamadriz/friendly-snippets' }
-  -- require('luasnip.loaders.from_vscode').lazy_load()
 
   -- [[ Autocomplete Engine ]]
   vim.pack.add { { src = gh 'saghen/blink.cmp', version = vim.version.range '1.*' } }
@@ -700,10 +682,8 @@ do
     },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets' },
+      default = { 'lsp', 'path' },
     },
-
-    snippets = { preset = 'luasnip' },
 
     -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
     -- which automatically downloads a prebuilt binary when enabled.
@@ -781,5 +761,4 @@ do
   })
 end
 
--- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
